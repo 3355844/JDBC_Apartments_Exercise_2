@@ -32,5 +32,15 @@ public class MainApartments {
         System.out.println("get by price");
         apartmentsArrayList = dao.getApartmentsByPrice(500000);
         System.out.println(apartmentsArrayList.toString());
+
+        Apartments apartments = dao.getApartmentsById(2).get(0);
+        apartments.setAddress("new Address");
+        apartments.setRegion("new Region");
+        apartments.setPrice(20000);
+        apartments.setSquare(250);
+        apartments.setRooms(6);
+        dao.updateApartments(apartments);
+        dao.deleteApartmentById(4);
+
     }
 }

@@ -11,6 +11,34 @@ public class ApartmentsDAO {
 
     private MySqlConnector connector = new MySqlConnector();
 
+    public void deleteApartmentById(int id) {
+        String query = "DELETE  FROM apartments WHERE ID = ?;";
+        try {
+            PreparedStatement statement = connector.getConnection().prepareStatement(query);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateApartments(Apartments apartments) {
+        PreparedStatement statement;
+        String query = "UPDATE apartments SET REGION=?, ADDRESS=?, SQUARE=?, ROOMS=?, PRICE=? WHERE ID=?;";
+        try {
+            statement = connector.getConnection().prepareStatement(query);
+            statement.setString(1, apartments.getRegion());
+            statement.setString(2, apartments.getAddress());
+            statement.setInt(3, apartments.getSquare());
+            statement.setInt(4, apartments.getRooms());
+            statement.setDouble(5, apartments.getPrice());
+            statement.setInt(6, apartments.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<Apartments> getApartmentsById(int id) {
         ResultSet resultSet = null;
         String query = "SELECT * FROM apartments WHERE ID = '" + id + "';";

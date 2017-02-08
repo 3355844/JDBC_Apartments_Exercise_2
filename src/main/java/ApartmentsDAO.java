@@ -7,10 +7,11 @@ import java.util.ArrayList;
 /**
  * Created by user on 01.02.2017.
  */
-public class ApartmentsDAO {
+public class ApartmentsDAO implements Dao {
 
     private MySqlConnector connector = new MySqlConnector();
 
+    @Override
     public void deleteApartmentById(int id) {
         String query = "DELETE  FROM apartments WHERE ID = ?;";
         try {
@@ -22,6 +23,7 @@ public class ApartmentsDAO {
         }
     }
 
+    @Override
     public void updateApartments(Apartments apartments) {
         PreparedStatement statement;
         String query = "UPDATE apartments SET REGION=?, ADDRESS=?, SQUARE=?, ROOMS=?, PRICE=? WHERE ID=?;";
@@ -39,6 +41,7 @@ public class ApartmentsDAO {
         }
     }
 
+    @Override
     public ArrayList<Apartments> getApartmentsById(int id) {
         ResultSet resultSet = null;
         String query = "SELECT * FROM apartments WHERE ID = '" + id + "';";
@@ -51,6 +54,7 @@ public class ApartmentsDAO {
         return parseApartments(resultSet);
     }
 
+    @Override
     public ArrayList<Apartments> getApartmentsByRegion(String region) {
         ResultSet resultSet = null;
         String query = "SELECT * FROM apartments WHERE REGION = '" + region + "';";
@@ -63,6 +67,7 @@ public class ApartmentsDAO {
         return parseApartments(resultSet);
     }
 
+    @Override
     public ArrayList<Apartments> getApartmentsByAddress(String address) {
         ResultSet resultSet = null;
         String query = "SELECT * FROM apartments WHERE ADDRESS = '" + address + "';";
@@ -75,6 +80,7 @@ public class ApartmentsDAO {
         return parseApartments(resultSet);
     }
 
+    @Override
     public ArrayList<Apartments> getApartmentsBySquare(int square) {
         ResultSet resultSet = null;
         String query = "SELECT * FROM apartments WHERE SQUARE = '" + square + "';";
@@ -87,6 +93,7 @@ public class ApartmentsDAO {
         return parseApartments(resultSet);
     }
 
+    @Override
     public ArrayList<Apartments> getApartmentsByRooms(int rooms) {
         ResultSet resultSet = null;
         String query = "SELECT * FROM apartments WHERE ROOMS = '" + rooms + "';";
@@ -99,6 +106,7 @@ public class ApartmentsDAO {
         return parseApartments(resultSet);
     }
 
+    @Override
     public ArrayList<Apartments> getApartmentsByPrice(double price) {
         ResultSet resultSet = null;
         String query = "SELECT * FROM apartments WHERE PRICE = '" + price + "';";
@@ -130,6 +138,7 @@ public class ApartmentsDAO {
         return resultList;
     }
 
+    @Override
     public void addApartments(Apartments apartments) {
         PreparedStatement statement;
         try {
